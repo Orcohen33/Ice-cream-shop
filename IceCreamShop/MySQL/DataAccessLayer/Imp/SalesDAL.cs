@@ -15,7 +15,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
             try
             {
                 dbContext.conn.Open();
-                string sql = "INSERT INTO `IceCreamStore`.`Sales` (Order_date, price) VALUES (@Order_date, @price);";
+                string sql = "INSERT INTO `icecreamshop`.`Sales` (Order_date, price) VALUES (@Order_date, @price);";
                 MySqlCommand cmd = new MySqlCommand(sql, dbContext.conn);
                 cmd.Parameters.AddWithValue("@Order_date", obj.Order_date);
                 cmd.Parameters.AddWithValue("@price", obj.Price);
@@ -39,7 +39,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
             try
             {
                 dbContext.conn.Open();
-                string sql = "DELETE FROM `IceCreamStore`.`Sales` WHERE sid = @id";
+                string sql = "DELETE FROM `icecreamshop`.`Sales` WHERE sid = @id";
                 MySqlCommand cmd = new MySqlCommand(sql, dbContext.conn);
                 cmd.Parameters.AddWithValue("@id", obj.Id);
                 success = cmd.ExecuteNonQuery();
@@ -61,7 +61,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
             try
             {
                 dbContext.conn.Open();
-                string sql = "DELETE FROM `IceCreamStore`.`Sales` WHERE id = @id";
+                string sql = "DELETE FROM `icecreamshop`.`Sales` WHERE id = @id";
                 MySqlCommand cmd = new MySqlCommand(sql, dbContext.conn);
                 cmd.Parameters.AddWithValue("@id", id);
                 success = cmd.ExecuteNonQuery();
@@ -83,7 +83,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
             try
             {
                 dbContext.conn.Open();
-                string sql = "SELECT * FROM `IceCreamStore`.`Sales`";
+                string sql = "SELECT * FROM `icecreamshop`.`Sales`";
                 MySqlCommand cmd = new MySqlCommand(sql, dbContext.conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -117,7 +117,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
             try
             {
                 dbContext.conn.Open();
-                string sql = "UPDATE `IceCreamStore`.`Sales` SET Order_date = @Order_date, price = @price WHERE sid = @id";
+                string sql = "UPDATE `icecreamshop`.`Sales` SET Order_date = @Order_date, price = @price WHERE sid = @id";
                 MySqlCommand cmd = new MySqlCommand(sql, dbContext.conn);
                 cmd.Parameters.AddWithValue("@id", obj.Id);
                 cmd.Parameters.AddWithValue("@Order_date", obj.Order_date);
@@ -142,7 +142,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
             try
             {
                 dbContext.conn.Open();
-                string sql = "SELECT MAX(sid) AS sid FROM `IceCreamStore`.`Sales`;";
+                string sql = "SELECT MAX(sid) AS sid FROM `icecreamshop`.`Sales`;";
                 MySqlCommand cmd = new MySqlCommand(sql, dbContext.conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 reader.Read();

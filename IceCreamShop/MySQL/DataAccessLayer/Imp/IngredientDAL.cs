@@ -61,7 +61,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
         public IList<Ingredient> readAll()
         {
             dbContext.conn.Open();
-            string sql = "SELECT * FROM `IceCreamStore`.`ingredients`";
+            string sql = "SELECT * FROM `icecreamshop`.`ingredients`";
             MySqlDataReader reader = new MySqlCommand(sql, dbContext.conn).ExecuteReader();
             IList<Ingredient> ingredients = new List<Ingredient>();
             while (reader.Read())
@@ -83,7 +83,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
         public Ingredient GetIngredient(string name, string type)
         {
             dbContext.conn.Open();
-            string sql = "SELECT * FROM `IceCreamStore`.`ingredients` WHERE name = @name AND type = @type";
+            string sql = "SELECT * FROM `icecreamshop`.`ingredients` WHERE name = @name AND type = @type";
             MySqlParameter[] parameters = new MySqlParameter[]
             {
                 new MySqlParameter("@name", name),
@@ -109,7 +109,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
             try
             {
                 dbContext.conn.Open();
-                string sql = "SELECT * FROM `IceCreamStore`.`ingredients` WHERE iid = @id;";
+                string sql = "SELECT * FROM `icecreamshop`.`ingredients` WHERE iid = @id;";
                 MySqlCommand cmd = new MySqlCommand(sql, dbContext.conn);
                 cmd.Parameters.AddWithValue("@id", id);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -136,7 +136,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
         public int GetIngredientID(string name, string type)
         {
             dbContext.conn.Open();
-            string sql = "SELECT iid FROM `IceCreamStore`.`ingredients` WHERE name = @name AND type = @type";
+            string sql = "SELECT iid FROM `icecreamshop`.`ingredients` WHERE name = @name AND type = @type";
             MySqlCommand cmd = new MySqlCommand(sql, dbContext.conn);
             cmd.Parameters.AddWithValue("@name", name);
             cmd.Parameters.AddWithValue("@type", type);
@@ -157,7 +157,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
             try
             {
                 dbContext.conn.Open();
-                string sql = "SELECT * FROM `IceCreamStore`.`ingredients` s WHERE s.type = @type;";
+                string sql = "SELECT * FROM `icecreamshop`.`ingredients` s WHERE s.type = @type;";
                 MySqlCommand cmd = new MySqlCommand(sql, dbContext.conn);
                 cmd.Parameters.AddWithValue("@type", type);
                 MySqlDataReader reader = cmd.ExecuteReader();

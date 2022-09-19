@@ -15,6 +15,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Factory
         {
             try
             {
+                /* Fill your connection details */
                 const string connStr = "server=localhost;user=root;port=3306;password=root";
                 conn = new MySqlConnection(connStr);
                 Console.WriteLine("[DbContext] Connecting to MySQL...");

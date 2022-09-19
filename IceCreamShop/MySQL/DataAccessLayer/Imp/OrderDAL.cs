@@ -15,7 +15,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
             try
             {
                 dbContext.conn.Open();
-                string sql = "INSERT INTO `IceCreamStore`.`orders` (sid, iid) VALUES (@SaleId, @IngredientId)";
+                string sql = "INSERT INTO `icecreamshop`.`orders` (sid, iid) VALUES (@SaleId, @IngredientId)";
                 MySqlCommand cmd = new MySqlCommand(sql, dbContext.conn);
                 cmd.Parameters.AddWithValue("@SaleId", obj.SaleId);
                 cmd.Parameters.AddWithValue("@IngredientId", obj.IngredientId);
@@ -128,7 +128,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
             try
             {
                 dbContext.conn.Open();
-                string sql = "SELECT price FROM `IceCreamStore`.`ingredients` WHERE iid = @IngredientId";
+                string sql = "SELECT price FROM `icecreamshop`.`ingredients` WHERE iid = @IngredientId";
                 MySqlCommand cmd = new MySqlCommand(sql, dbContext.conn);
                 cmd.Parameters.AddWithValue("@IngredientId", x.IngredientId);
                 price = Convert.ToInt32(cmd.ExecuteScalar());

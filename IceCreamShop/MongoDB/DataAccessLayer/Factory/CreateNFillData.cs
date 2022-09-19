@@ -3,12 +3,12 @@ using MongoDB.Driver;
 
 namespace IceCreamShop.MongoDB.DataAccessLayer.Factory
 {
-    public class MongoCreateNFillData
+    public class CreateNFillData
     {
         private readonly IMongoDatabase dbConnection = MongoDBInstance.GetMongoDatabase;
 
 
-        public void MongoFillIngredients()
+        public void FillIngredients()
         {
             try
             {
@@ -53,7 +53,7 @@ namespace IceCreamShop.MongoDB.DataAccessLayer.Factory
 
         }
 
-        public bool MongoDatabaseExists()
+        public bool MongoDBExists()
         {
             {
                 var databases = dbConnection.Client.ListDatabaseNames().ToList();

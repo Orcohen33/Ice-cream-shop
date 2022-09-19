@@ -1852,11 +1852,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\orcoh\\Desktop\\Bachalor\\Year2\\Databases\\vs2022\\IceCreamStore5\\IceCreamStoreSystem\\IceCreamShop\\IceCreamShopp.csproj",
-      "projectName": "IceCreamShopp",
-      "projectPath": "C:\\Users\\orcoh\\Desktop\\Bachalor\\Year2\\Databases\\vs2022\\IceCreamStore5\\IceCreamStoreSystem\\IceCreamShop\\IceCreamShopp.csproj",
+      "projectUniqueName": "C:\\Users\\orcoh\\Source\\Repos\\Ice-cream-shop\\IceCreamShop\\IceCreamShop.csproj",
+      "projectName": "IceCreamShop",
+      "projectPath": "C:\\Users\\orcoh\\Source\\Repos\\Ice-cream-shop\\IceCreamShop\\IceCreamShop.csproj",
       "packagesPath": "C:\\Users\\orcoh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\orcoh\\Desktop\\Bachalor\\Year2\\Databases\\vs2022\\IceCreamStore5\\IceCreamStoreSystem\\IceCreamShop\\obj\\",
+      "outputPath": "C:\\Users\\orcoh\\Source\\Repos\\Ice-cream-shop\\IceCreamShop\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\orcoh\\AppData\\Roaming\\NuGet\\NuGet.Config",

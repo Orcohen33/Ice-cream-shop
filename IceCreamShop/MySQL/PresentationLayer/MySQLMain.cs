@@ -1,4 +1,5 @@
 ﻿using IceCreamShop.MySQL.BusinessLogicLayer;
+using IceCreamShop.MySQL.DataAccessLayer.Factory;
 
 namespace IceCreamShop.MySQL.PresentationLayer
 {
@@ -7,8 +8,13 @@ namespace IceCreamShop.MySQL.PresentationLayer
         public MySQLMain()
         {
             Console.WriteLine("[Main] MySQL");
-            //new MySQLCreateNFillData().MySQLcreateTables();
-            //new MySQLCreateNFillData().MySQLfillIngredients();
+
+            if (!new CreateNFillData().MySQLExists())
+            {
+                new CreateNFillData()
+                    .createTables()
+                    .FillIngredients();
+            }
             OrderProcess mySQLDemo = new();
         }
     }
