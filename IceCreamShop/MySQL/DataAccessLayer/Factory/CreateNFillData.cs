@@ -171,7 +171,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Factory
                     sale = new(dates[r.Next(0, dates.Length - 1)]);
                     saleDAL.createRecord(sale);
                     sale.setId(saleDAL.GetPK());
-                    // choose type of box
+                    // choose type of cup
                     ingredient = ingredientDAL.readAll()
                                                     .Where(x => x.Type == "Box")
                                                     .ToList()[r.Next(0, 3)];
