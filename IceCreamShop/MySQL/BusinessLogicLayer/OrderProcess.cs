@@ -72,17 +72,14 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
             switch (userInput)
             {
                 case 1:
-                    Console.WriteLine("Added regular cup to your order");
                     sale.orders.Add(new(sale.Id, ingredientBLL.GetIngredientID("RegularCup", "Box")));
                     userInputStr = "Cup";
                     break;
                 case 2:
-                    Console.WriteLine("Added special cup to your order");
                     sale.orders.Add(new(sale.Id, ingredientBLL.GetIngredientID("SpecialCup", "Box")));
                     userInputStr = "Cup";
                     break;
                 case 3:
-                    Console.WriteLine("Added box to your order");
                     sale.orders.Add(new(sale.Id, ingredientBLL.GetIngredientID("Box", "Box")));
                     userInputStr = "Box";
                     break;
@@ -142,7 +139,6 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
                     Console.Write("\tchoose id of taste: ");
                     userInput = int.Parse(Console.ReadLine());
                     sale.orders.Add(new(sale.Id, userInput));
-                    Console.WriteLine();
                 }
             }
             else
@@ -151,7 +147,6 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
                 userInput = int.Parse(Console.ReadLine());
                 sale.orders.Add(new(sale.Id, userInput));
                 sale.setPrice(sale.Price + 1);  // 1 ball worth 7, 2 and more worth each 6
-                Console.WriteLine();
             }
             chooseHowManyToppings(numOfBalls); // step 4 -> step 5
         }
@@ -180,8 +175,6 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
             {
                 Console.Write("\tchoose id of topping: ");
                 sale.orders.Add(new(sale.Id, kindOfToppings.ElementAt(int.Parse(Console.ReadLine()) - 1).Id));
-                //sale.orders.Add(new(sale.Id, int.Parse(Console.ReadLine())));
-                Console.WriteLine();
             }
             finalStepOfOrder(); // step 6 -> step 7
         }
@@ -255,8 +248,9 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
             } while (userInput != -1);
         }
         #endregion
-        /* ================================================================ Private methods =================================================================*/
+        #region help functions
         // private method to check which topping can be served to client
+
         private void WhatAddInsCanBeAdded()
         {
             for (int i = 1; i < sale.orders.Count(); i++)
@@ -298,5 +292,7 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
             Console.WriteLine(sale.Price);
             saleBLL.updateRecord(sale);
         }
+        #endregion
+
     }
 }

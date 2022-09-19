@@ -13,7 +13,8 @@ namespace IceCreamShop.MySQL.PresentationLayer
             {
                 new CreateNFillData()
                     .createTables()
-                    .FillIngredients();
+                    .FillIngredients()
+                    .fillIncompleteAndCompleteSales();
             }
             OrderProcess mySQLDemo = new();
         }

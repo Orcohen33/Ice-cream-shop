@@ -1,4 +1,6 @@
-﻿using MySql.Data.MySqlClient;
+﻿using IceCreamShop.MySQL.DataAccessLayer.Imp;
+using IceCreamShop.MySQL.Entity;
+using MySql.Data.MySqlClient;
 
 namespace IceCreamShop.MySQL.DataAccessLayer.Factory
 {
@@ -121,6 +123,10 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Factory
                 "INSERT INTO icecreamshop.ingredients(`name`, `type`,`price`) VALUES(\"Vanilla\", \"IceCream\", 6);" +
                 "INSERT INTO icecreamshop.ingredients(`name`, `type`,`price`) VALUES(\"Loacker\", \"IceCream\", 6);" +
                 "INSERT INTO icecreamshop.ingredients(`name`, `type`,`price`) VALUES(\"Oreo\", \"IceCream\", 6);" +
+                "INSERT INTO icecreamshop.ingredients(`name`, `type`,`price`) VALUES(\"Banana \", \"IceCream\", 6);" +
+                "INSERT INTO icecreamshop.ingredients(`name`, `type`,`price`) VALUES(\"Cookie Dough\", \"IceCream\", 6);" +
+                "INSERT INTO icecreamshop.ingredients(`name`, `type`,`price`) VALUES(\"Mint Chocolate Chip\", \"IceCream\", 6);" +
+                "INSERT INTO icecreamshop.ingredients(`name`, `type`,`price`) VALUES(\"Toffee\", \"IceCream\", 6);" +
 
                 "INSERT INTO icecreamshop.ingredients(`name`,`type`,`price`) VALUES(\"RegularCup\", \"Box\", 0);" +
                 "INSERT INTO icecreamshop.ingredients(`name`,`type`,`price`) VALUES(\"SpecialCup\", \"Box\", 2);" +
@@ -128,6 +134,8 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Factory
 
                 "INSERT INTO icecreamshop.ingredients(`name`,`type`,`price`) VALUES(\"Chocolate\", \"Topping\", 2);" +
                 "INSERT INTO icecreamshop.ingredients(`name`,`type`,`price`) VALUES(\"Maple\", \"Topping\", 2);" +
+                "INSERT INTO icecreamshop.ingredients(`name`,`type`,`price`) VALUES(\"Oreos\", \"Topping\", 2);" +
+                "INSERT INTO icecreamshop.ingredients(`name`,`type`,`price`) VALUES(\"Caramel\", \"Topping\", 2);" +
                 "INSERT INTO icecreamshop.ingredients(`name`,`type`,`price`) VALUES(\"Peanut\", \"Topping\", 2);";
 
                 MySqlCommand cmd = new MySqlCommand(sql, dbContext.conn);
@@ -135,7 +143,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Factory
             }
             catch (Exception err)
             {
-                err.Message.ToString();
+                Console.WriteLine($"[fillIngredients] Error: {err.Message}");
             }
             finally
             {
@@ -144,34 +152,87 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Factory
             return this;
         }
 
-        // #TODO: Complete this method
-        public void fillIncompleteAndCompleteSales()
+        public CreateNFillData fillIncompleteAndCompleteSales()
         {
-            string sql = "INSERT INTO icecreamshop.ingredients(`order_date`, `price`) VALUES(@date, @price);";
+            bool chooseChocolate = false, chooseMekupelet = false, chooseVanilla = false;
             Random r = new();
-            int randNumber = r.Next(0, dates.Length);
+            int randDates = r.Next(0, dates.Length);
+            Sale sale;
+            Ingredient ingredient;
+            SaleDAL saleDAL = new();
+            IngredientDAL ingredientDAL = new();
+            OrderDAL orderDAL = new();
             try
             {
-                dbContext.conn.Open();
-
-                for (int i = 0; i < dates.Length; i++)
+                #region complete sales
+                for (int i = 0; i < 100; i++)
                 {
-                    MySqlCommand cmd = new MySqlCommand(sql, dbContext.conn);
-                    cmd.Parameters.AddWithValue("@date", dates[randNumber]);
-                    cmd.Parameters.AddWithValue("@price", randNumber);
-                    cmd.ExecuteNonQuery();
-                    randNumber = r.Next(0, dates.Length);
+                    // initialize sale
+                    sale = new(dates[r.Next(0, dates.Length - 1)]);
+                    saleDAL.createRecord(sale);
+                    sale.setId(saleDAL.GetPK());
+                    // choose type of box
+                    ingredient = ingredientDAL.readAll()
+                                                    .Where(x => x.Type == "Box")
+                                                    .ToList()[r.Next(0, 3)];
+                    sale.orders.Add(new(sale.Id, ingredient.Id));
+                    // choose balls
+                    var numOfBalls = ingredient.Name.Equals("RegularCup") || ingredient.Name.Equals("SpecialCup") ? r.Next(1, 4) : r.Next(1, 7);
+                    if (numOfBalls == 1) sale.setPrice(1);
+
+                    for (int j = 0; j < numOfBalls; j++)
+                    {
+                        ingredient = ingredientDAL.readAll()
+                                                    .Where(x => x.Type == "IceCream")
+                                                    .ToList()[r.Next(0, 9)];
+                        sale.orders.Add(new(sale.Id, ingredient.Id));
+                        switch (ingredient.Name)
+                        {
+                            case "Chocolate":
+                                chooseChocolate = true;
+                                break;
+                            case "Mekupelet":
+                                chooseMekupelet = true;
+                                break;
+                            case "Vanilla":
+                                chooseVanilla = true;
+                                break;
+                        }
+                    }
+                    // choose toppings
+                    var numOfToppings = r.Next(0, 4);
+                    var kindOfToppings = ingredientDAL.readAll().Where(x => x.Type == "Topping")
+                                                                .Where(x => !((chooseChocolate || chooseMekupelet) && x.Name == "Chocolate"))
+                                                                .Where(x => !(chooseVanilla && x.Name == "Maple")).ToList();
+                    for (int j = 0; j < numOfToppings; j++)
+                    {
+                        sale.orders.Add(new(sale.Id, kindOfToppings[r.Next(0, kindOfToppings.Count - 1)].Id));
+                    }
+                    // complete order
+                    foreach (Order order in sale.orders)
+                        orderDAL.createRecord(order);
+                    sale.setPrice(sale.getPrice() + sale.orders.Sum(order => orderDAL.getProductPrice(order)));
+                    saleDAL.updateRecord(sale);
+                    chooseChocolate = false;
+                    chooseMekupelet = false;
+                    chooseVanilla = false;
                 }
+                #endregion
+                #region incomplete sales
+                for (int i = 0; i < 30; i++)
+                {
+                    sale = new(dates[r.Next(0, dates.Length - 1)]);
+                    saleDAL.createRecord(sale);
+                    sale.setId(saleDAL.GetPK());
+                }
+                #endregion
             }
-            catch (Exception err)
+            catch (Exception ex)
             {
-                err.Message.ToString();
-            }
-            finally
-            {
-                dbContext.conn.Close();
+                Console.WriteLine($"[fillIncompleteAndCompleteSales] Error: {ex.Message}");
             }
 
+            return this;
         }
     }
 

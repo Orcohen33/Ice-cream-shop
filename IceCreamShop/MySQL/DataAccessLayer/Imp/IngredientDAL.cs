@@ -11,35 +11,73 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
         #region Crud operations
         public int createRecord(Ingredient obj)
         {
-            dbContext.conn.Open();
-            string sql = "INSERT INTO ingredient (name, type, price) VALUES (@name, @type,@price)";
-            MySqlParameter[] parameters = new MySqlParameter[]
+            try
             {
+                dbContext.conn.Open();
+                string sql = "INSERT INTO ingredient (name, type, price) VALUES (@name, @type,@price)";
+                MySqlParameter[] parameters = new MySqlParameter[]
+                {
                 new MySqlParameter("@name", obj.Name),
                 new MySqlParameter("@type", obj.Type),
                 new MySqlParameter("@price", obj.Price)
-            };
-            return new MySqlCommand(sql, dbContext.conn).ExecuteNonQuery();
+                };
+                return new MySqlCommand(sql, dbContext.conn).ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+                return 0;
+            }
+            finally
+            {
+                dbContext.conn.Close();
+            }
         }
 
         public int deleteRecord(Ingredient obj)
         {
-            string sql = "DELETE FROM ingredient WHERE id = @id";
-            MySqlParameter[] parameters = new MySqlParameter[]
+            try
             {
+                dbContext.conn.Open();
+                string sql = "DELETE FROM ingredient WHERE id = @id";
+                MySqlParameter[] parameters = new MySqlParameter[]
+                {
                 new MySqlParameter("@id", obj.Id)
-            };
-            return new MySqlCommand(sql, dbContext.conn).ExecuteNonQuery();
+                };
+                return new MySqlCommand(sql, dbContext.conn).ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+                return 0;
+            }
+            finally
+            {
+                dbContext.conn.Close();
+            }
         }
 
         public int deleteRecord(int pk)
         {
-            string sql = "DELETE FROM ingredient WHERE id = @id";
-            MySqlParameter[] parameters = new MySqlParameter[]
+            try
             {
+                string sql = "DELETE FROM ingredient WHERE id = @id";
+                MySqlParameter[] parameters = new MySqlParameter[]
+                {
                 new MySqlParameter("@id", pk)
-            };
-            return new MySqlCommand(sql, dbContext.conn).ExecuteNonQuery();
+                };
+                return new MySqlCommand(sql, dbContext.conn).ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+                return 0;
+
+            }
+            finally
+            {
+                dbContext.conn.Close();
+            }
         }
         public int updateRecord(int pk, Ingredient obj)
         {
@@ -48,61 +86,61 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
 
         public int updateRecord(Ingredient obj)
         {
-            string sql = "UPDATE ingredient SET name = @name, price = @price WHERE id = @id";
-            MySqlParameter[] parameters = new MySqlParameter[]
+            try
             {
+                string sql = "UPDATE ingredient SET name = @name, price = @price WHERE id = @id";
+                MySqlParameter[] parameters = new MySqlParameter[]
+                {
                 new MySqlParameter("@name", obj.Name),
                 new MySqlParameter("@price", obj.Price),
                 new MySqlParameter("@id", obj.Id)
-            };
-            return new MySqlCommand(sql, dbContext.conn).ExecuteNonQuery();
+                };
+                return new MySqlCommand(sql, dbContext.conn).ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+                return 0;
+            }
+            finally
+            {
+                dbContext.conn.Close();
+            }
         }
 
         public IList<Ingredient> readAll()
         {
-            dbContext.conn.Open();
-            string sql = "SELECT * FROM `icecreamshop`.`ingredients`";
-            MySqlDataReader reader = new MySqlCommand(sql, dbContext.conn).ExecuteReader();
-            IList<Ingredient> ingredients = new List<Ingredient>();
-            while (reader.Read())
+            try
             {
-                Ingredient ingredient = new Ingredient(
-                    (int)reader.GetInt64(0),
-                    reader.GetString(1),
-                    reader.GetString(2),
-                    reader.GetInt32(3)
-                    );
-                ingredients.Add(ingredient);
+                dbContext.conn.Open();
+                string sql = "SELECT * FROM `icecreamshop`.`ingredients`";
+                MySqlDataReader reader = new MySqlCommand(sql, dbContext.conn).ExecuteReader();
+                IList<Ingredient> ingredients = new List<Ingredient>();
+                while (reader.Read())
+                {
+                    Ingredient ingredient = new Ingredient(
+                        (int)reader.GetInt64(0),
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        reader.GetInt32(3)
+                        );
+                    ingredients.Add(ingredient);
+                }
+                reader.Close();
+                dbContext.conn.Close();
+                return ingredients;
             }
-            reader.Close();
-            dbContext.conn.Close();
-            return ingredients;
-
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+            finally
+            {
+                dbContext.conn.Close();
+            }
         }
         #endregion
-        public Ingredient GetIngredient(string name, string type)
-        {
-            dbContext.conn.Open();
-            string sql = "SELECT * FROM `icecreamshop`.`ingredients` WHERE name = @name AND type = @type";
-            MySqlParameter[] parameters = new MySqlParameter[]
-            {
-                new MySqlParameter("@name", name),
-                new MySqlParameter("@type", type)
-            };
-            MySqlDataReader reader = new MySqlCommand(sql, dbContext.conn).ExecuteReader();
-            Ingredient ingredient;
-            reader.Read();
-            ingredient = new Ingredient(
-                (int)reader.GetInt64(0),
-                reader.GetString(1),
-                reader.GetString(2),
-                reader.GetInt32(3)
-                );
-
-            reader.Close();
-            dbContext.conn.Close();
-            return ingredient;
-        }
         public Ingredient GetIngredientByID(int id)
         {
             Ingredient ans = null;

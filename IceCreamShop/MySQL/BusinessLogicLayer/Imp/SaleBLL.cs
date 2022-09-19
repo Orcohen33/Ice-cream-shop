@@ -1,12 +1,11 @@
 ﻿using IceCreamShop.MySQL.BusinessLogicLayer.Interfaces;
-using IceCreamShop.MySQL.DataAccessLayer.Imp;
 using IceCreamShop.MySQL.Entity;
 
 namespace IceCreamShop.MySQL.BusinessLogicLayer.Imp
 {
     internal class SaleBLL : ICrudBLL<Sale>
     {
-        private readonly SaleDAL saleDAL = new SaleDAL();
+        private readonly DataAccessLayer.Imp.SaleDAL saleDAL = new DataAccessLayer.Imp.SaleDAL();
         public int createRecord(Sale obj)
         {
             return saleDAL.createRecord(obj);

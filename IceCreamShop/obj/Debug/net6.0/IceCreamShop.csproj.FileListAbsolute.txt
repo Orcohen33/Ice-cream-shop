@@ -50,3 +50,8 @@ C:\Users\orcoh\Source\Repos\Ice-cream-shop\IceCreamShop\obj\Debug\net6.0\refint\
 C:\Users\orcoh\Source\Repos\Ice-cream-shop\IceCreamShop\obj\Debug\net6.0\IceCreamShop.pdb
 C:\Users\orcoh\Source\Repos\Ice-cream-shop\IceCreamShop\obj\Debug\net6.0\IceCreamShop.genruntimeconfig.cache
 C:\Users\orcoh\Source\Repos\Ice-cream-shop\IceCreamShop\obj\Debug\net6.0\ref\IceCreamShop.dll
+C:\Users\orcoh\Source\Repos\Ice-cream-shop\IceCreamShop\bin\Debug\net6.0\Microsoft.Data.Tools.Schema.Sql.dll
+C:\Users\orcoh\Source\Repos\Ice-cream-shop\IceCreamShop\bin\Debug\net6.0\Microsoft.Data.Tools.Schema.Sql.UnitTesting.dll
+C:\Users\orcoh\Source\Repos\Ice-cream-shop\IceCreamShop\bin\Debug\net6.0\Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter.dll
+C:\Users\orcoh\Source\Repos\Ice-cream-shop\IceCreamShop\bin\Debug\net6.0\Microsoft.Data.Tools.Utilities.dll
+C:\Users\orcoh\Source\Repos\Ice-cream-shop\IceCreamShop\bin\Debug\net6.0\Microsoft.SqlServer.TransactSql.ScriptDom.dll

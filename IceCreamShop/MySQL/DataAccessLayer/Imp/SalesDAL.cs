@@ -20,7 +20,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
                 cmd.Parameters.AddWithValue("@Order_date", obj.Order_date);
                 cmd.Parameters.AddWithValue("@price", obj.Price);
                 success = cmd.ExecuteNonQuery();
-                Console.WriteLine("[SaleDAL] Inserted successfuly");
+                Console.WriteLine("[SaleBLL] Inserted successfuly");
             }
             catch (Exception err) when (err is MySqlException)
             {
@@ -148,8 +148,6 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
                 reader.Read();
                 pk = int.Parse(reader["sid"].ToString());
                 reader.Close();
-                Console.WriteLine($"[GetPK]: {pk}");
-
             }
             catch (Exception e)
             {
