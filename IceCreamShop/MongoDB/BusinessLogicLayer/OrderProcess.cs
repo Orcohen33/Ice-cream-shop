@@ -49,7 +49,7 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
             } while (userInput != -1);
         }
 
-        #region order process
+        #region Order process
         //step 1
         private void startOrder()
         {
@@ -90,12 +90,16 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
                     mongoSale.ingredients.Add(IngredientCollection.Find(x => x.name == "Box" && x.type == "Box"));
                     userInputStr = "Box";
                     break;
+                case -1:
+                    Environment.Exit(0);
+                    break;
                 default:
                     Console.WriteLine("Invalid input");
                     break;
             }
             howManyBalls(); //step 2 -> step 3
         }
+        //step 3
         private void howManyBalls()
         {
             int numOfBalls = 0;
@@ -114,9 +118,9 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
             {
                 numOfBalls = int.Parse(Console.ReadLine());
             } while (validNumOfBalls(numOfBalls));
-            chooseFlavor(numOfBalls);
+            chooseFlavor(numOfBalls); //step 3 -> step 4
         }
-
+        //step 4
         private void chooseFlavor(int numOfBalls)
         {
             Console.WriteLine("[chooseFlavor]");
@@ -147,9 +151,9 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
                 }
 
             }
-            chooseHowManyToppings(numOfBalls);
+            chooseHowManyToppings(numOfBalls); //step 4 -> step 5
         }
-
+        //step 5
         private void chooseHowManyToppings(int numOfBalls)
         {
             if (mongoSale.ingredients.Any(x => x.name == "RegularCup")
@@ -157,9 +161,9 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
             { mongoSale.price += 1; finalStepOrder(ref mongoSale); return; }
             if (numOfBalls == 1) { mongoSale.price += 1; }
             Console.WriteLine("Choose how many toppings you want to order: ");
-            chooseToppings(int.Parse(Console.ReadLine()));
+            chooseToppings(int.Parse(Console.ReadLine())); //step 5 -> step 6
         }
-
+        //step 6
         private void chooseToppings(int numOfToppings)
         {
             // print list of toppings from mongoingredientdal
@@ -182,9 +186,9 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
                     Console.WriteLine("Invalid input");
                 }
             } while (--numOfToppings > 0);
-            finalStepOrder(ref mongoSale);
+            finalStepOrder(ref mongoSale); //step 6 -> step 7
         }
-
+        //step 7
         private void finalStepOrder(ref Sale mongoSale)
         {
             Console.WriteLine("[finalStepOrder]");
@@ -220,27 +224,7 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
             mongoSaleDAL.UpdateDocument(mongoSale);
         }
         #endregion
-
-        // ---------------------------------------------- HELP FUNCTIONS ----------------------------------------------
-        #region help functions
-        private bool validNumOfBalls(int numOfBalls)
-        {
-            if (userInputStr == "Cup" && numOfBalls > 3)
-            {
-                Console.WriteLine("Invalid input");
-                return true;
-            }
-            else if (userInputStr == "Box" && numOfBalls < 1)
-            {
-                Console.WriteLine("Invalid input");
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
+        #region Analysis
         private void startAnalysis()
         {
             Console.Clear();
@@ -279,6 +263,25 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
                         break;
                 }
             } while (userInput != -1);
+        }
+        #endregion
+        #region help functions
+        private bool validNumOfBalls(int numOfBalls)
+        {
+            if (userInputStr == "Cup" && numOfBalls > 3)
+            {
+                Console.WriteLine("Invalid input");
+                return true;
+            }
+            else if (userInputStr == "Box" && numOfBalls < 1)
+            {
+                Console.WriteLine("Invalid input");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
     }

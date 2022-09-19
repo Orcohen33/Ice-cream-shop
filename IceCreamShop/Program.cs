@@ -19,6 +19,10 @@ do
         case "2":
             new MongoDBMain();
             break;
+        case "-1":
+            Console.WriteLine("Exiting...");
+            userInput = "";
+            break;
         default:
             Console.WriteLine("Wrong input, try again");
             break;
