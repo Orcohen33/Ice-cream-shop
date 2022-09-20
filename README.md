@@ -1,5 +1,5 @@
 # Ice-cream-shop
-Implement a ice cream shop system with MySQL &amp; MongoDB
+Implement a ice cream shop system with MySQL &amp; MongoDB using the three-layer architecture.
 
 ## About
 <br>This project represents the customer and manager's side in an ice cream shop (for analysis purposes).</br>
@@ -11,12 +11,9 @@ Implement a ice cream shop system with MySQL &amp; MongoDB
 4. What is the most common ingredient and what is the most common flavor.
 </br>
 
-## Requirement
-`.NET 6.0`
+# System Design
+![SystemDesign](https://user-images.githubusercontent.com/92351152/191262207-a42195e5-704b-40ee-9ffe-109271b49e8a.png)
 
-`MySQL`
-
-`MongoDB`
 
 # MySQL
 
@@ -50,15 +47,30 @@ set up your connection details here:
 MongoClientSettings settings = MongoClientSettings.FromConnectionString("mongodb://localhost:27017");
 ...
 ```
+
+## Requirement
+`.NET 6.0`
+
+`MySQL`
+
+`MongoDB`
+
 # How to run
 
   - Open cmd and write the following commands: 
   - Clone this repository : `git clone https://github.com/Orcohen33/Ice-cream-shop.git`
-  - Enter the foler `IceCreamShop` : `cd Ice-cream-shop/IceCreamShop`
+  - Enter the foler 'IceCreamShop' : `cd Ice-cream-shop/IceCreamShop`
   - Run the program: `dotnet run Program.cs`
 
 
 # Overview
 ### A simple video illustrating the console app:
 #### MySQL:
+https://user-images.githubusercontent.com/92351152/191263303-748b2262-b0b3-40e7-942e-5dc28f16249b.mp4
+
+
+
+
+
+
 
