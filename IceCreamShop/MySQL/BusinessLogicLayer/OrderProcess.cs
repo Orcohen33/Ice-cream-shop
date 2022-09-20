@@ -50,7 +50,15 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
         /* step 1 */
         void startOrder()
         {
-            Console.Clear();
+            try
+            {
+                System.Console.Clear();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("[startOrder] Error: " + e.Message);
+            }
+
             Console.WriteLine("[startOrder]");
 
             // initialize sale

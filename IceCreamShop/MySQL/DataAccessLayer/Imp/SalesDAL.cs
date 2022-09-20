@@ -20,7 +20,6 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Imp
                 cmd.Parameters.AddWithValue("@Order_date", obj.Order_date);
                 cmd.Parameters.AddWithValue("@price", obj.Price);
                 success = cmd.ExecuteNonQuery();
-                Console.WriteLine("[SaleBLL] Inserted successfuly");
             }
             catch (Exception err) when (err is MySqlException)
             {

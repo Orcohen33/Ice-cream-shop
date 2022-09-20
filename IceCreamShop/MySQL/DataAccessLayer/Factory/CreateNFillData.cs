@@ -165,6 +165,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Factory
             try
             {
                 #region complete sales
+                Console.WriteLine("Filling 100 random complete sales");
                 for (int i = 0; i < 100; i++)
                 {
                     // initialize sale
@@ -219,6 +220,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Factory
                 }
                 #endregion
                 #region incomplete sales
+                Console.WriteLine("Filling 30 random incomplete sales");
                 for (int i = 0; i < 30; i++)
                 {
                     sale = new(dates[r.Next(0, dates.Length - 1)]);
