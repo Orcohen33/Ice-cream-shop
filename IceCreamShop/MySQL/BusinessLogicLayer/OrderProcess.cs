@@ -22,7 +22,6 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
         {
             do
             {
-                try { Console.Clear(); } catch (Exception) { }
                 Console.WriteLine("[Main-menu]\n\t" +
                     "1.Start order.\n\t" +
                     "2.Analysis.\n\t" +
@@ -206,7 +205,7 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
         /* step 7 */
         void finalStepOfOrder()
         {
-            Console.WriteLine("[finalStepOfOrder]");
+            Console.WriteLine("\n[finalStepOfOrder]");
             Console.WriteLine("1.Complete an order and start a new one.\n" +
                               "2.Complete and back to start menu.\n" +
                               "3.Cancel order.");
