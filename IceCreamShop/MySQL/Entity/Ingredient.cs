@@ -15,7 +15,6 @@
             _Type = type;
             _Price = price;
         }
-        public Ingredient() { }
         public int Id
         {
             get => _Id;

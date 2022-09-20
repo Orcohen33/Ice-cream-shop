@@ -1,7 +1,7 @@
 ﻿using IceCreamShop.MongoDB.BusinessLogicLayer.Analysis;
 using IceCreamShop.MongoDB.DataAccessLayer.Imp;
 using IceCreamShop.MongoDB.Entity;
-
+#pragma warning disable
 namespace IceCreamShop.MongoDB.BusinessLogicLayer
 {
     //  This class represents the logic of ordering a dish in a store.

@@ -1,7 +1,7 @@
 ﻿using ConsoleTables;
 using IceCreamShop.MySQL.DataAccessLayer.Factory;
 using MySql.Data.MySqlClient;
-
+#pragma warning disable
 namespace IceCreamShop.MySQL.DataAccessLayer.Analysis
 {
     internal class AnalysisImpDAL

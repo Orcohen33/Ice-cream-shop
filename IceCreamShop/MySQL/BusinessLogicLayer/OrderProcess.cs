@@ -1,7 +1,7 @@
 ﻿using IceCreamShop.MySQL.BusinessLogicLayer.Analysis;
 using IceCreamShop.MySQL.BusinessLogicLayer.Imp;
 using IceCreamShop.MySQL.Entity;
-
+#pragma warning disable
 namespace IceCreamShop.MySQL.BusinessLogicLayer
 {
     // This class represents the logic of ordering a dish in a store.

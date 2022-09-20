@@ -2,7 +2,7 @@
 using IceCreamShop.MongoDB.DataAccessLayer.Factory;
 using IceCreamShop.MongoDB.Entity;
 using MongoDB.Driver;
-
+#pragma warning disable
 namespace IceCreamShop.MongoDB.DataAccessLayer.Analysis
 {
     internal class AnalysisImpDAL
