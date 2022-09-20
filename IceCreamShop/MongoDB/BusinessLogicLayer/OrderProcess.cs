@@ -232,6 +232,15 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
                 mongoSale.price = mongoSale.ingredients.Sum(x => x.price);
             }
             mongoSaleDAL.UpdateDocument(mongoSale);
+            string result = "------------------------------ Customer invoice ------------------------------\n";
+            result += "Order date: " + mongoSale.order_date.ToShortDateString() + "\n";
+            result += "Price: " + mongoSale.price + "\n";
+            result += "Ingredients: \n";
+            foreach (var ingredient in mongoSale.ingredients)
+            {
+                result += "\t" + ingredient.name + "\n";
+            }
+            Console.WriteLine(result);
         }
         #endregion
         #region Analysis
