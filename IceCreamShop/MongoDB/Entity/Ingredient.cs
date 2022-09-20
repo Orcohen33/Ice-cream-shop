@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
+#pragma warning disable
 namespace IceCreamShop.MongoDB.Entity
 {
     public class Ingredient
