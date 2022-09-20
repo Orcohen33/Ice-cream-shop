@@ -141,7 +141,7 @@ namespace IceCreamShop.MongoDB.DataAccessLayer.Factory
         {
             {
                 var databases = dbConnection.Client.ListDatabaseNames().ToList();
-                return databases.Any(database => database.Equals("IceCreamStore"));
+                return databases.Any(database => database.Equals("IceCreamShop"));
             }
         }
         private bool MongoCollectionsExists()

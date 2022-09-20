@@ -10,7 +10,8 @@ namespace IceCreamShop.MongoDB.PresentationLayer
             Console.WriteLine("[main] MongoDB");
             // Create Database if doesnt exists.
             if (!new CreateNFillData().MongoDBExists())
-                new CreateNFillData().FillIngredients();
+                new CreateNFillData().FillIngredients()
+                                     .MongoCreateSales();
             OrderProcess mongoDBDemo = new();
         }
     }

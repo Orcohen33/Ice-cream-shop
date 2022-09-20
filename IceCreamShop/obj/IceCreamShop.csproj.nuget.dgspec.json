@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\orcoh\\Source\\Repos\\Ice-cream-shop\\IceCreamShop\\IceCreamShop.csproj": {}
+    "C:\\Users\\orcoh\\source\\repos\\Ice-cream-shop\\IceCreamShop\\IceCreamShop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\orcoh\\Source\\Repos\\Ice-cream-shop\\IceCreamShop\\IceCreamShop.csproj": {
+    "C:\\Users\\orcoh\\source\\repos\\Ice-cream-shop\\IceCreamShop\\IceCreamShop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\orcoh\\Source\\Repos\\Ice-cream-shop\\IceCreamShop\\IceCreamShop.csproj",
+        "projectUniqueName": "C:\\Users\\orcoh\\source\\repos\\Ice-cream-shop\\IceCreamShop\\IceCreamShop.csproj",
         "projectName": "IceCreamShop",
-        "projectPath": "C:\\Users\\orcoh\\Source\\Repos\\Ice-cream-shop\\IceCreamShop\\IceCreamShop.csproj",
+        "projectPath": "C:\\Users\\orcoh\\source\\repos\\Ice-cream-shop\\IceCreamShop\\IceCreamShop.csproj",
         "packagesPath": "C:\\Users\\orcoh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\orcoh\\Source\\Repos\\Ice-cream-shop\\IceCreamShop\\obj\\",
+        "outputPath": "C:\\Users\\orcoh\\source\\repos\\Ice-cream-shop\\IceCreamShop\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\orcoh\\AppData\\Roaming\\NuGet\\NuGet.Config",
