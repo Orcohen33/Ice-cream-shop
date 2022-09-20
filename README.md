@@ -21,8 +21,7 @@ Implement a ice cream shop system with MySQL &amp; MongoDB
 # MySQL
 
 ### Entity relationship diagram
-![ERDiagram](https://user-images.githubusercontent.com/92351152/191175024-4ada313b-9880-4611-9c6c-9499e4b36916.png)
-
+![ERDiagram](https://user-images.githubusercontent.com/92351152/191253758-8a8b687d-b00d-4578-8895-e3fa27f3e30d.png)
 
 ### Connection set-up
 <br>At `MySQL/DataAccessLayer/Factory/DbConnection`</br>
@@ -51,5 +50,15 @@ set up your connection details here:
 MongoClientSettings settings = MongoClientSettings.FromConnectionString("mongodb://localhost:27017");
 ...
 ```
+# How to run
+
+  - Open cmd and write the following commands: 
+  - Clone this repository : `git clone https://github.com/Orcohen33/Ice-cream-shop.git`
+  - Enter the foler `IceCreamShop` : `cd Ice-cream-shop/IceCreamShop`
+  - Run the program: `dotnet run Program.cs`
+
+
 # Overview
 ### A simple video illustrating the console app:
+#### MySQL:
+
