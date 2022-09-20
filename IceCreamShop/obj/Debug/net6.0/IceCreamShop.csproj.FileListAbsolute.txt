@@ -51,9 +51,9 @@ C:\Users\orcoh\source\repos\Ice-cream-shop\IceCreamShop\obj\Debug\net6.0\IceCrea
 C:\Users\orcoh\source\repos\Ice-cream-shop\IceCreamShop\obj\Debug\net6.0\IceCreamShop.genruntimeconfig.cache
 C:\Users\orcoh\source\repos\Ice-cream-shop\IceCreamShop\obj\Debug\net6.0\ref\IceCreamShop.dll
 C:\Users\orcoh\Desktop\IceCreamShopRepo\Ice-cream-shop\IceCreamShop\bin\Debug\net6.0\IceCreamShop.exe
-C:\Users\orcoh\Desktop\IceCreamShopRepo\Ice-cream-shop\IceCreamShop\bin\Debug\net6.0\IceCreamShop.dll
 C:\Users\orcoh\Desktop\IceCreamShopRepo\Ice-cream-shop\IceCreamShop\bin\Debug\net6.0\IceCreamShop.deps.json
 C:\Users\orcoh\Desktop\IceCreamShopRepo\Ice-cream-shop\IceCreamShop\bin\Debug\net6.0\IceCreamShop.runtimeconfig.json
+C:\Users\orcoh\Desktop\IceCreamShopRepo\Ice-cream-shop\IceCreamShop\bin\Debug\net6.0\IceCreamShop.dll
 C:\Users\orcoh\Desktop\IceCreamShopRepo\Ice-cream-shop\IceCreamShop\bin\Debug\net6.0\IceCreamShop.pdb
 C:\Users\orcoh\Desktop\IceCreamShopRepo\Ice-cream-shop\IceCreamShop\bin\Debug\net6.0\ConsoleTables.dll
 C:\Users\orcoh\Desktop\IceCreamShopRepo\Ice-cream-shop\IceCreamShop\bin\Debug\net6.0\DnsClient.dll
