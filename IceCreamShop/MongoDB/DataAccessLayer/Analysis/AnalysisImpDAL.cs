@@ -89,72 +89,27 @@ namespace IceCreamShop.MongoDB.DataAccessLayer.Analysis
 
         internal string mostCommonIngredientNTaste()
         {
+            var table = new ConsoleTable("name", "count", "type");
             var collection = dbConnection.GetCollection<Sale>("Sales");
 
-            var mostIngredients = collection
-                .Find(x => true).ToList();
+            var iceCreams = collection.Find(_ => true)
+                                      .ToList()
+                                      .SelectMany(x => x.ingredients)
+                                      .Where(x => x.type.Equals("IceCream"))
+                                      .ToList();
+            var mostCommonIceCream = iceCreams.GroupBy(x => x.name).OrderByDescending(x => x.Count()).FirstOrDefault();
 
-            IDictionary<string, IDictionary<string, int>> keyValuePairs = new Dictionary<string, IDictionary<string, int>>();
-            keyValuePairs.Add("IceCream", new Dictionary<string, int>());
-            keyValuePairs.Add("Topping", new Dictionary<string, int>());
-            keyValuePairs.Add("Box", new Dictionary<string, int>());
+            var toppings = collection.Find(_ => true)
+                                     .ToList()
+                                     .SelectMany(x => x.ingredients)
+                                     .Where(x => x.type.Equals("Topping"))
+                                     .ToList();
+            var mostCommonTopping = toppings.GroupBy(x => x.name).OrderByDescending(x => x.Count()).FirstOrDefault();
 
-            foreach (Sale sale in mostIngredients)
-            {
-                foreach (var mongoIngredient in sale.ingredients)
-                {
-                    switch (mongoIngredient.type)
-                    {
-                        case "IceCream":
-                            if (!keyValuePairs["IceCream"].ContainsKey(mongoIngredient.name))
-                            {
-                                keyValuePairs["IceCream"].Add(mongoIngredient.name, 1);
-                            }
-                            keyValuePairs["IceCream"][mongoIngredient.name] += 1;
-                            break;
-                        case "Topping":
-                            if (!keyValuePairs["Topping"].ContainsKey(mongoIngredient.name))
-                            {
-                                keyValuePairs["Topping"].Add(mongoIngredient.name, 1);
-                            }
-                            keyValuePairs["Topping"][mongoIngredient.name] += 1;
-                            break;
-                        case "Box":
-                            if (!keyValuePairs["Box"].ContainsKey(mongoIngredient.name))
-                            {
-                                keyValuePairs["Box"].Add(mongoIngredient.name, 1);
-                            }
-                            keyValuePairs["Box"][mongoIngredient.name] += 1;
-                            break;
-                    }
-                }
-            }
-            keyValuePairs.ToList().ForEach(x => Console.WriteLine(x));
+            table.AddRow(mostCommonIceCream.Key, mostCommonIceCream.Count(), "IceCream");
+            table.AddRow(mostCommonTopping.Key, mostCommonTopping.Count(), "Topping");
 
-            int max = 0;
-            string icecream = "";
-            foreach (string key in keyValuePairs["IceCream"].Keys)
-            {
-                if (max < keyValuePairs["IceCream"][key])
-                {
-                    max = keyValuePairs["IceCream"][key];
-                    icecream = key;
-                }
-            }
-            Console.WriteLine($"{icecream} : {max}");
-            //var mostIngredients = collection
-            //    .Aggregate()
-            //    .Group(sale => sale.ingredients, g => new { ingredient = g.Key, count = g.Count() })
-            //    .SortByDescending(g => g.count).Limit(1).ToList();
-
-            //// find the most ingredient with type 'IceCream' and print it
-            //var mostTaste = collection
-            //    .Aggregate()
-            //    .Group(sale => sale.ingredients, g => new { ingredient = g.Key, count = g.Count() })
-            //    .SortByDescending(g => g.count).Limit(1).ToList();
-
-            var obj = collection.Find(sale => true).ToList();
-            return obj[0].ToString();
+            return table.ToString() + "\n";
         }
     }
 }
