@@ -206,7 +206,7 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
         void finalStepOfOrder()
         {
             Console.WriteLine("\n[finalStepOfOrder]");
-            Console.WriteLine("1.Complete an order and start a new one.\n" +
+            Console.WriteLine("1.Add a new ice cream order to the current order.\n" +
                               "2.Complete and back to start menu.\n" +
                               "3.Cancel order.");
             switch (int.Parse(Console.ReadLine()))
