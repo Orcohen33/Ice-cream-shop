@@ -22,7 +22,7 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
         {
             do
             {
-                //Console.Clear();
+                try { Console.Clear(); } catch (Exception) { }
                 Console.WriteLine("[Main-menu]\n\t" +
                     "1.Start order.\n\t" +
                     "2.Analysis.\n\t" +
@@ -171,7 +171,7 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
                 Console.Write("Choose how many toppings: ");
                 userInput = int.Parse(Console.ReadLine());
                 if (userInput == 0) finalStepOfOrder(); // step 5 -> step 7
-                else chooseTopping(int.Parse(Console.ReadLine())); // step 5 -> step 6            
+                else chooseTopping(userInput); // step 5 -> step 6            
             }
         }
 
@@ -233,6 +233,7 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
         #region Analysis
         private void startAnalysis()
         {
+            try { Console.Clear(); } catch (Exception) { }
             Console.WriteLine("==================================== Analysis ====================================");
             AnalysisImpBLL analysisImpBLL = new();
             do

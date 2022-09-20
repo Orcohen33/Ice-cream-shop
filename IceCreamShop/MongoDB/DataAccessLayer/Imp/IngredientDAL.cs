@@ -15,7 +15,6 @@ namespace IceCreamShop.MongoDB.DataAccessLayer.Imp
             {
                 var collection = dbConnection.GetCollection<Ingredient>("Ingredients");
                 collection.InsertOne(ingredient);
-                Console.WriteLine("[CreateDocument] Inserted");
             }
             catch (Exception err) when (err is MongoException || err is MongoWriteException)
             {
@@ -30,7 +29,6 @@ namespace IceCreamShop.MongoDB.DataAccessLayer.Imp
                 var collection = dbConnection.GetCollection<Ingredient>("Ingredients");
                 var deleteFilter = Builders<Ingredient>.Filter.Eq("_id", ingredient._id);
                 collection.DeleteOne(deleteFilter);
-                Console.WriteLine("[DeleteDocument] Deleted");
             }
             catch (Exception err) when (err is MongoException || err is MongoWriteException)
             {
@@ -88,7 +86,6 @@ namespace IceCreamShop.MongoDB.DataAccessLayer.Imp
                     .Set("type", ingredient.type)
                     .Set("price", ingredient.price);
                 collection.UpdateOne(updateFilter, update);
-                Console.WriteLine("[UpdateDocument] Updated");
             }
             catch (Exception err) when (err.InnerException != null || err is MongoException || err is MongoWriteException)
             {

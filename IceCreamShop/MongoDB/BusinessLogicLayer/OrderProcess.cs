@@ -70,33 +70,38 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
         private void chooseCup(ref Sale mongoSale)
         {
             Console.WriteLine("[chooseCup]");
-            Console.WriteLine("Choose which kind of cup you want to order:\n\t" +
+            do
+            {
+                Console.WriteLine("Choose which kind of cup you want to order:\n\t" +
                   "1.Regular (0 nis)\n\t" +
                   "2.Special (2 nis)\n\t" +
                   "3.Box     (5 nis)\n\t" +
                   "-1.Exit");
-            userInput = int.Parse(Console.ReadLine());
-            switch (userInput)
-            {
-                case 1:
-                    mongoSale.ingredients.Add(IngredientCollection.Find(x => x.name == "RegularCup" && x.type == "Box"));
-                    userInputStr = "Cup";
-                    break;
-                case 2:
-                    mongoSale.ingredients.Add(IngredientCollection.Find(x => x.name == "SpecialCup" && x.type == "Box"));
-                    userInputStr = "Cup";
-                    break;
-                case 3:
-                    mongoSale.ingredients.Add(IngredientCollection.Find(x => x.name == "Box" && x.type == "Box"));
-                    userInputStr = "Box";
-                    break;
-                case -1:
-                    Environment.Exit(0);
-                    break;
-                default:
+                while (!int.TryParse(Console.ReadLine(), out userInput))
+                {
                     Console.WriteLine("Invalid input");
-                    break;
-            }
+                }
+                switch (userInput)
+                {
+                    case 1:
+                        mongoSale.ingredients.Add(IngredientCollection.Find(x => x.name == "RegularCup" && x.type == "Box"));
+                        userInputStr = "Cup";
+                        break;
+                    case 2:
+                        mongoSale.ingredients.Add(IngredientCollection.Find(x => x.name == "SpecialCup" && x.type == "Box"));
+                        userInputStr = "Cup";
+                        break;
+                    case 3:
+                        mongoSale.ingredients.Add(IngredientCollection.Find(x => x.name == "Box" && x.type == "Box"));
+                        userInputStr = "Box";
+                        break;
+                    case -1:
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        break;
+                }
+            } while (userInput != 1 && userInput != 2 && userInput != 3);
             howManyBalls(); //step 2 -> step 3
         }
         //step 3
@@ -132,7 +137,7 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
             var iceCreamList = IngredientCollection.FindAll(x => x.type == "IceCream");
             for (int i = 0; i < numOfBalls; i++)
             {
-                Console.Write("Choose flavor: ");
+                Console.Write("Choose taste id: ");
                 userInput = int.Parse(Console.ReadLine());
                 if (userInput > 0 && userInput <= iceCreamList.Count())
                 {
@@ -160,8 +165,13 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
                 && numOfBalls == 1)
             { mongoSale.price += 1; finalStepOrder(ref mongoSale); return; }
             if (numOfBalls == 1) { mongoSale.price += 1; }
-            Console.WriteLine("Choose how many toppings you want to order: ");
-            chooseToppings(int.Parse(Console.ReadLine())); //step 5 -> step 6
+            Console.Write("Choose how many toppings you want to order: ");
+            while (!int.TryParse(Console.ReadLine(), out userInput))
+            {
+                if (userInput < 0 && userInput > 30)
+                    Console.Write("Invalid input, try again: ");
+            };
+            chooseToppings(userInput); //step 5 -> step 6
         }
         //step 6
         private void chooseToppings(int numOfToppings)
@@ -173,19 +183,22 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
                                                         .Where(x => !(chooseVanilla && x.name == "Maple")).ToList();
             toppingCollection.ForEach(x => Console.WriteLine($"{index++}: {x.name} ({x.price} nis)"));
 
-            do
+            for (int i = 0; i < numOfToppings; i++)
             {
-                Console.WriteLine("Choose topping: ");
-                userInput = int.Parse(Console.ReadLine());
-                if (userInput > 0 && userInput <= toppingCollection.Count)
+                Console.Write("Choose topping id: ");
+                while (!int.TryParse(Console.ReadLine(), out userInput))
                 {
-                    mongoSale.ingredients.Add(toppingCollection[userInput - 1]);
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input");
-                }
-            } while (--numOfToppings > 0);
+                    if (userInput > 0 && userInput <= toppingCollection.Count)
+                    {
+                        mongoSale.ingredients.Add(toppingCollection[userInput - 1]);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input");
+                    }
+                };
+
+            }
             finalStepOrder(ref mongoSale); //step 6 -> step 7
         }
         //step 7
@@ -214,20 +227,19 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
         private void completeOrder(ref Sale mongoSale)
         {
             if (mongoSale.ingredients != null)
-                foreach (Ingredient ingredient in mongoSale.ingredients)
-                {
-                    if (mongoSale.price == null) mongoSale.price = 0;
-                    mongoSale.price += ingredient.price;
-                } // Fix this
-            Console.WriteLine("Your order is ready!");
-            Console.WriteLine($"Your order price is: {mongoSale.price}");
+            {
+                if (mongoSale.price == null) mongoSale.price = 0;
+                mongoSale.price = mongoSale.ingredients.Sum(x => x.price);
+            }
             mongoSaleDAL.UpdateDocument(mongoSale);
         }
         #endregion
         #region Analysis
         private void startAnalysis()
         {
-            Console.Clear();
+
+            try { Console.Clear(); }
+            catch (Exception) { }
             AnalysisImpBLL analysisImpBLL = new();
             do
             {
@@ -237,7 +249,12 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
                                 $"3. All end of day reports: \n" +
                                 $"4. Show all incomplete sales: \n" +
                                 $"5. Most common ingredient and taste:");
-                userInput = int.Parse(Console.ReadLine());
+
+                if (!int.TryParse(Console.ReadLine(), out int userInput))
+                {
+                    Console.WriteLine("Invalid input");
+                    continue;
+                }
                 switch (userInput)
                 {
                     case 1:
@@ -259,6 +276,9 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
                     case 5:
                         Console.WriteLine(analysisImpBLL.mostCommonIngredientNTaste());
                         break;
+                    case -1:
+                        return;
+                        break;
                     default:
                         break;
                 }
@@ -270,12 +290,12 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
         {
             if (userInputStr == "Cup" && numOfBalls > 3)
             {
-                Console.WriteLine("Invalid input");
+                Console.Write("Invalid input, choose how many balls: ");
                 return true;
             }
             else if (userInputStr == "Box" && numOfBalls < 1)
             {
-                Console.WriteLine("Invalid input");
+                Console.Write("Invalid input, choose how many balls: ");
                 return true;
             }
             else

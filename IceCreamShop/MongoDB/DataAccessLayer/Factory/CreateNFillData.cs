@@ -62,7 +62,6 @@ namespace IceCreamShop.MongoDB.DataAccessLayer.Factory
         public CreateNFillData MongoCreateSales()
         {
             Random r = new();
-            int randDates = r.Next(0, dates.Length);
             bool chooseChocolate = false, chooseMekupelet = false, chooseVanilla = false;
             Sale sale;
             Ingredient ingredient;
@@ -74,7 +73,7 @@ namespace IceCreamShop.MongoDB.DataAccessLayer.Factory
                 // initialize sale
                 sale = new()
                 {
-                    order_date = DateTime.Now,
+                    order_date = DateTime.TryParse(dates[r.Next(0, dates.Length - 1)], out DateTime date) ? date : DateTime.Now,
                     ingredients = new List<Ingredient>()
                 };
                 mongoSaleDAL.CreateDocument(sale);
@@ -115,6 +114,7 @@ namespace IceCreamShop.MongoDB.DataAccessLayer.Factory
                     sale.ingredients.Add(ingredient);
                 }
                 // complete order
+                if (sale.price == null) sale.price = 0;
                 sale.price += sale.ingredients.Sum(x => x.price);
                 mongoSaleDAL.UpdateDocument(sale);
                 chooseChocolate = false;
@@ -135,7 +135,6 @@ namespace IceCreamShop.MongoDB.DataAccessLayer.Factory
             #endregion
             return this;
         }
-
 
         public bool MongoDBExists()
         {

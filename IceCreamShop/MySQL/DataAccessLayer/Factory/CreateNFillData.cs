@@ -156,7 +156,6 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Factory
         {
             bool chooseChocolate = false, chooseMekupelet = false, chooseVanilla = false;
             Random r = new();
-            int randDates = r.Next(0, dates.Length);
             Sale sale;
             Ingredient ingredient;
             SaleDAL saleDAL = new();
