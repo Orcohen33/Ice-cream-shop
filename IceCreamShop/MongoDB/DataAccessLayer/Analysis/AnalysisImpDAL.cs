@@ -1,4 +1,5 @@
-﻿using IceCreamShop.MongoDB.DataAccessLayer.Factory;
+﻿using ConsoleTables;
+using IceCreamShop.MongoDB.DataAccessLayer.Factory;
 using IceCreamShop.MongoDB.Entity;
 using MongoDB.Driver;
 
@@ -28,22 +29,31 @@ namespace IceCreamShop.MongoDB.DataAccessLayer.Analysis
 
         internal string endOfDayReport(string date)
         {
+            var table = new ConsoleTable("date", "total_sales", "total_price", "average_price");
             var collection = dbConnection.GetCollection<Sale>("Sales");
             var obj = collection.Find(sale => sale.order_date.Equals(date)).ToList();
-            return obj.ToString();
+            var total_sales = obj.Count;
+            var total_price = obj.Sum(sale => sale.price);
+            var average_price = obj.Average(sale => sale.price);
+            table.AddRow(date, total_sales, total_price, average_price);
+            string title = "------------------------------ End of day report ------------------------------\n";
+            return title + table.ToString() + "\n";
         }
 
         internal string allEndOfDayReports()
         {
+            var table = new ConsoleTable("date", "total_sales", "total_price", "average_price");
             var collection = dbConnection.GetCollection<Sale>("Sales");
-            var obj = collection.Find(sale => sale.price != null).ToList();
-            string res = "----------------- All end of day reports -----------------\n";
-            foreach (Sale o in obj)
+            var sales = collection.Find(sale => sale.price != null).ToList();
+            sales.GroupBy(sale => sale.order_date.Date).ToList().ForEach(group =>
             {
-                res += o + "\n";
-            }
-            res += "Total sales: " + obj.Count();
-            return res;
+                var total_sales = group.Count();
+                var total_price = group.Sum(sale => sale.price);
+                var average_price = group.Average(sale => sale.price);
+                table.AddRow(group.Key, total_sales, total_price, average_price);
+            });
+            string res = "----------------- All end of day reports -----------------\n";
+            return res + table.ToString() + "\n";
         }
 
         internal string showAllIncompleteSales()

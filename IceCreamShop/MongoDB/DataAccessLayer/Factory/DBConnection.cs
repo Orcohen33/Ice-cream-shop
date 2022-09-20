@@ -19,7 +19,7 @@ namespace IceCreamShop.MongoDB.DataAccessLayer.Factory
             try
             {
                 var client = new MongoClient(settings);
-                db = client.GetDatabase("IceCreamStore");
+                db = client.GetDatabase("IceCreamShop");
                 Console.WriteLine("[MongoDBInstance] Connecting to MongoDB...");
             }
             catch (Exception err)

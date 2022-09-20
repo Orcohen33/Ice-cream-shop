@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
+﻿
 using IceCreamShop.MongoDB.PresentationLayer;
 using IceCreamShop.MySQL.PresentationLayer;
 
