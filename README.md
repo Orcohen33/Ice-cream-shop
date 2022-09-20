@@ -21,11 +21,11 @@ Implement a ice cream shop system with MySQL &amp; MongoDB
 # MySQL
 
 ### Entity relationship diagram
-![ERDiagram](https://user-images.githubusercontent.com/92351152/190480122-cc04283c-5ecd-4c6d-bf11-3a0ef8efd2db.png)
+![ERDiagram](https://user-images.githubusercontent.com/92351152/191175024-4ada313b-9880-4611-9c6c-9499e4b36916.png)
 
 
 ### Connection set-up
-<br>At `DataAccessLayer/MySqlFactory/DbConnection`</br>
+<br>At `MySQL/DataAccessLayer/Factory/DbConnection`</br>
 set up your connection details here:
 ```c#
 ...
@@ -44,7 +44,7 @@ const string connStr = "server=localhost;user=root;port=3306;password=root";
 
 
 ### Connection set-up
-<br>At `DataAccessLayer/MongoDbFactory/MongoDBConnection`</br>
+<br>At `MongoDB/DataAccessLayer/Factory/DBConnection`</br>
 set up your connection details here:
 ```c#
 ...
