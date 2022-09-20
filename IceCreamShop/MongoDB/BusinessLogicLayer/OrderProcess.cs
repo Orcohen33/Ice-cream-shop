@@ -30,7 +30,10 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
                     "2.Analysis.\n\t" +
                     "-1. Exit");
 
-                userInput = int.Parse(Console.ReadLine());
+                while (!int.TryParse(Console.ReadLine(), out userInput))
+                {
+                    Console.Write("Invalid input, try again: ");
+                }
                 switch (userInput)
                 {
                     case 1:
