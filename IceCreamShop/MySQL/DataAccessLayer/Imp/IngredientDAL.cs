@@ -3,6 +3,8 @@ using IceCreamShop.MySQL.DataAccessLayer.Interfaces;
 using IceCreamShop.MySQL.Entity;
 using MySql.Data.MySqlClient;
 
+#pragma warning disable
+
 namespace IceCreamShop.MySQL.DataAccessLayer.Imp
 {
     class IngredientDAL : ICrudDAL<Ingredient>

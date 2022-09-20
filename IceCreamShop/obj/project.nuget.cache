@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ONJQ6JAxwYrZ/jQiNRfn21BVCXES3D7pzkDuNCP8NuwT5JCk1FdeIthhtnqLiFNnAjPe3Yg1o/kl3tSmVO0oww==",
+  "dgSpecHash": "OZXTyWYxQfLE2qehpS5lKeXqRiwP5VbSyDZPnLTEFd1NsudGqiZPYS2Ok+pEjh1XxzN/k7xPxBGmuR9olzj1Vw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\orcoh\\source\\repos\\Ice-cream-shop\\IceCreamShop\\IceCreamShop.csproj",
+  "projectFilePath": "C:\\Users\\orcoh\\Desktop\\IceCreamShopRepo\\Ice-cream-shop\\IceCreamShop\\IceCreamShop.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\orcoh\\.nuget\\packages\\consoletables\\2.4.2\\consoletables.2.4.2.nupkg.sha512",
     "C:\\Users\\orcoh\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",

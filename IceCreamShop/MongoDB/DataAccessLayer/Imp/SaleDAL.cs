@@ -3,7 +3,7 @@ using IceCreamShop.MongoDB.DataAccessLayer.Interfaces;
 using IceCreamShop.MongoDB.Entity;
 using MongoDB.Bson;
 using MongoDB.Driver;
-
+#pragma warning disable
 namespace IceCreamShop.MongoDB.DataAccessLayer.Imp
 {
     public class SaleDAL : ICrudDAL<Sale>

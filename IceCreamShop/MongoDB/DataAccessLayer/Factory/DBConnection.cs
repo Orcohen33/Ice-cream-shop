@@ -1,5 +1,5 @@
 ﻿using MongoDB.Driver;
-
+#pragma warning disable
 namespace IceCreamShop.MongoDB.DataAccessLayer.Factory
 {
     //Mark the class as 'sealed' so as not to make this class inheritable. Optional.

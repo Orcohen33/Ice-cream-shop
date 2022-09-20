@@ -2,7 +2,7 @@
 using IceCreamShop.MongoDB.DataAccessLayer.Interfaces;
 using IceCreamShop.MongoDB.Entity;
 using MongoDB.Driver;
-
+#pragma warning disable
 namespace IceCreamShop.MongoDB.DataAccessLayer.Imp
 {
     internal class IngredientDAL : ICrudDAL<Ingredient>

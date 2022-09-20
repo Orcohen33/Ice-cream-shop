@@ -1,7 +1,7 @@
 ﻿using IceCreamShop.MySQL.DataAccessLayer.Imp;
 using IceCreamShop.MySQL.Entity;
 using MySql.Data.MySqlClient;
-
+#pragma warning disable
 namespace IceCreamShop.MySQL.DataAccessLayer.Factory
 {
     class CreateNFillData
