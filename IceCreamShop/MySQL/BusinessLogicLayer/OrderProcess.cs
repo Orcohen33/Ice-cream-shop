@@ -176,7 +176,7 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
         }
 
         /* step 6 */
-        void chooseTopping(int userInput)
+        void chooseTopping(int numOfToppings)
         {
             WhatAddInsCanBeAdded();
             var kindOfToppings = ingredientBLL.GetIngredientsListByType("Topping").Where(x => x.Type == "Topping")
@@ -186,7 +186,7 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
             #region print list of toppings
             kindOfToppings.ForEach(x => Console.WriteLine($"{index++}. {x.Name} ({x.Price} nis)"));
             #endregion
-            for (int i = 0; i < userInput; i++)
+            for (int i = 0; i < numOfToppings; i++)
             {
 
                 Console.Write("Choose topping id: ");
