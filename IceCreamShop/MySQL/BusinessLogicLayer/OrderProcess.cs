@@ -58,7 +58,7 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
             {
                 Console.WriteLine("[startOrder] Error: " + e.Message);
             }
-
+            Console.WriteLine("==================================== Order process ====================================");
             Console.WriteLine("[startOrder]");
 
             // initialize sale
@@ -71,52 +71,59 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
         void chooseCup(ref Sale sale)
         {
             Console.WriteLine("[chooseCup]");
-            Console.WriteLine("Choose which kind of cup you want to order:\n\t" +
-                  "1.Regular (0 nis)\n\t" +
-                  "2.Special (2 nis)\n\t" +
-                  "3.Box     (5 nis)\n\t" +
-                  "-1.Exit");
-            userInput = int.Parse(Console.ReadLine());
-            switch (userInput)
+
+            do
             {
-                case 1:
-                    sale.orders.Add(new(sale.Id, ingredientBLL.GetIngredientID("RegularCup", "Box")));
-                    userInputStr = "Cup";
-                    break;
-                case 2:
-                    sale.orders.Add(new(sale.Id, ingredientBLL.GetIngredientID("SpecialCup", "Box")));
-                    userInputStr = "Cup";
-                    break;
-                case 3:
-                    sale.orders.Add(new(sale.Id, ingredientBLL.GetIngredientID("Box", "Box")));
-                    userInputStr = "Box";
-                    break;
-                case -1:
-                    Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine("Invalid input");
-                    break;
-            }
+                Console.WriteLine("Choose which kind of cup you want to order:\n\t" +
+                                  "1.Regular (0 nis)\n\t" +
+                                  "2.Special (2 nis)\n\t" +
+                                  "3.Box     (5 nis)\n\t" +
+                                  "-1.Exit");
+                userInput = int.Parse(Console.ReadLine());
+
+                switch (userInput)
+                {
+                    case 1:
+                        sale.orders.Add(new(sale.Id, ingredientBLL.GetIngredientID("RegularCup", "Box")));
+                        userInputStr = "Cup";
+                        break;
+                    case 2:
+                        sale.orders.Add(new(sale.Id, ingredientBLL.GetIngredientID("SpecialCup", "Box")));
+                        userInputStr = "Cup";
+                        break;
+                    case 3:
+                        sale.orders.Add(new(sale.Id, ingredientBLL.GetIngredientID("Box", "Box")));
+                        userInputStr = "Box";
+                        break;
+                    case -1:
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input");
+                        userInput = 4;
+                        break;
+                }
+            } while (userInput != 1 && userInput != 2 && userInput != 3);
             howManyBalls(); // step 2 -> step 3
         }
         /* step 3 */
         void howManyBalls()
         {
             int numOfBalls = 0;
-            switch (userInputStr)
-            {
-                case "Cup":
-                    Console.Write("(you allowed to choose at most 3 balls)\nChoose how many balls: ");
-                    break;
-                case "Box":
-                    Console.Write("(unlimited balls)\nChoose how many balls:");
-                    break;
-                default:
-                    break;
-            }
+
             do
             {
+                switch (userInputStr)
+                {
+                    case "Cup":
+                        Console.Write("(you allowed to choose at most 3 balls)\nChoose how many balls: ");
+                        break;
+                    case "Box":
+                        Console.Write("(unlimited balls)\nChoose how many balls:");
+                        break;
+                    default:
+                        break;
+                }
                 numOfBalls = int.Parse(Console.ReadLine());
             } while (validNumOfBalls(numOfBalls));
 
@@ -218,7 +225,7 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
         #region Analysis
         private void startAnalysis()
         {
-            Console.Clear();
+            Console.WriteLine("==================================== Analysis ====================================");
             AnalysisImpBLL analysisImpBLL = new();
             do
             {
@@ -227,7 +234,8 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
                                 $"2. End of day report: (Enter date in format: yyyy-mm-dd): \n" +
                                 $"3. All end of day reports: \n" +
                                 $"4. Show all incomplete sales: \n" +
-                                $"5. Most common ingredient and taste:");
+                                $"5. Most common ingredient and taste:" +
+                                $"-1. Exit:");
                 userInput = int.Parse(Console.ReadLine());
                 switch (userInput)
                 {
@@ -296,9 +304,10 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
                 orderBLL.createRecord(order);
             }
             sale.setPrice(sale.getPrice() + sale.orders.Sum(order => orderBLL.getProductPrice(order)));
-            Console.WriteLine("============================ [completeOrder] ===============");
-            Console.WriteLine(sale.Price);
+            //Console.WriteLine("============================ [completeOrder] ===============");
+            //Console.WriteLine(sale.Price);
             saleBLL.updateRecord(sale);
+            Console.WriteLine(new AnalysisImpBLL().customerInvoice(sale.Id));
         }
         #endregion
 

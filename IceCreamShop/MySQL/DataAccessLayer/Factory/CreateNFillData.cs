@@ -134,7 +134,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Factory
 
                 "INSERT INTO icecreamshop.ingredients(`name`,`type`,`price`) VALUES(\"Chocolate\", \"Topping\", 2);" +
                 "INSERT INTO icecreamshop.ingredients(`name`,`type`,`price`) VALUES(\"Maple\", \"Topping\", 2);" +
-                "INSERT INTO icecreamshop.ingredients(`name`,`type`,`price`) VALUES(\"Oreos\", \"Topping\", 2);" +
+                "INSERT INTO icecreamshop.ingredients(`name`,`type`,`price`) VALUES(\"Oreo\", \"Topping\", 2);" +
                 "INSERT INTO icecreamshop.ingredients(`name`,`type`,`price`) VALUES(\"Caramel\", \"Topping\", 2);" +
                 "INSERT INTO icecreamshop.ingredients(`name`,`type`,`price`) VALUES(\"Peanut\", \"Topping\", 2);";
 

@@ -1,11 +1,14 @@
 ﻿using IceCreamShop.MySQL.BusinessLogicLayer.Interfaces;
+using IceCreamShop.MySQL.DataAccessLayer.Imp;
 using IceCreamShop.MySQL.Entity;
 
 namespace IceCreamShop.MySQL.BusinessLogicLayer.Imp
 {
     internal class IngredientBLL : ICrudBLL<Ingredient>
     {
-        private readonly DataAccessLayer.Imp.IngredientDAL ingredientDAL = new DataAccessLayer.Imp.IngredientDAL();
+        private readonly IngredientDAL ingredientDAL = new IngredientDAL();
+
+        internal IngredientDAL IngredientDAL => ingredientDAL;
         #region Crud operations
         public int createRecord(Ingredient obj)
         {

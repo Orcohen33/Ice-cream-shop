@@ -1,5 +1,6 @@
 ﻿using ConsoleTables;
 using IceCreamShop.MySQL.DataAccessLayer.Factory;
+using IceCreamShop.MySQL.DataAccessLayer.Imp;
 using MySql.Data.MySqlClient;
 #pragma warning disable
 namespace IceCreamShop.MySQL.DataAccessLayer.Analysis
@@ -7,22 +8,37 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Analysis
     internal class AnalysisImpDAL
     {
         private readonly DbContext dbContext = DbContext.Instance;
-
+        private readonly IngredientDAL ingredientDAL = new();
         // Customer invoice       
         public string customerInvoice(int sid)
         {
-            string result = "Wrong sid";
+            string result = "";
             try
             {
+                var ingredients = ingredientDAL.readAll();
                 dbContext.conn.Open();
                 string sql = "SELECT * FROM `icecreamshop`.`sales` WHERE sid = " + sid;
                 MySqlCommand cmd = new MySqlCommand(sql, dbContext.conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
+                if (!reader.HasRows) throw new Exception("No such sale");
+
                 result = "------------------------------ Customer invoice ------------------------------\n";
                 while (reader.Read())
                 {
-                    result += "Order Date: " + (DateTime)reader["order_date"] + "\n";
-                    result += "price: " + reader["price"] + "\n";
+
+                    result += "Order date: " + (DateTime)reader["order_date"] + "\n";
+                    result += "Price: " + reader["price"] + "\n";
+                }
+                reader.Close();
+
+                sql = "SELECT * FROM `icecreamshop`.`orders` WHERE sid = " + sid;
+                cmd = new MySqlCommand(sql, dbContext.conn);
+                reader = cmd.ExecuteReader();
+                result += "Ingredients:\n";
+                while (reader.Read())
+                {
+                    var ingredient = ingredients.First(x => x.Id.Equals((int)reader["iid"]));
+                    result += "\tType: " + ingredient.Type + "\tName: " + ingredient.Name + "\n";
                 }
                 reader.Close();
             }
@@ -39,7 +55,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Analysis
         // End of day report: sales amount, sales volume, average price to sale
         public string endOfDayReport(string date)
         {
-            Console.WriteLine("===[EndOfDayReport]===");
+            string result = "";
             // select sum of all sales, how many sales , avarege of all sales
             var table = new ConsoleTable("date", "total_sales", "total_price", "average_price");
             try
@@ -47,9 +63,10 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Analysis
                 dbContext.conn.Open();
                 string sql = "SELECT order_date ,count(sid) as total_sales, sum(price) as total_price, avg(price) as average_price FROM `icecreamshop`.`sales` WHERE order_date = '" + date + "';";
                 MySqlDataReader reader = new MySqlCommand(sql, dbContext.conn).ExecuteReader();
+                if (!reader.HasRows) throw new Exception("No such date");
+                result = "------------------------------ End of day report ------------------------------\n";
                 while (reader.Read())
                 {
-
                     table.AddRow(reader.GetDateTime(0).ToShortDateString(), reader.GetInt64(1), reader.GetDecimal(2), reader.GetDecimal(3));
                 }
                 reader.Close();
@@ -62,8 +79,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Analysis
             {
                 dbContext.conn.Close();
             }
-            string title = "------------------------------ End of day report ------------------------------\n";
-            return title + table.ToString() + "\n";
+            return result + table.ToString() + "\n";
         }
         public string allEndOfDayReports()
         {
@@ -97,20 +113,33 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Analysis
         // Incompleted sales.
         public string showAllIncompleteSales()
         {
-            Console.WriteLine("===[ShowAllIncompleteSales]===");
+            string result = "";
             // table variable
-            var table = new ConsoleTable("id", "date");
-            dbContext.conn.Open();
-            string sql = "SELECT * FROM `icecreamshop`.`sales` WHERE price IS NULL";
-            MySqlDataReader reader = new MySqlCommand(sql, dbContext.conn).ExecuteReader();
-            while (reader.Read())
+            var table = new ConsoleTable("date", "total_incomplete_sales");
+            try
             {
-                table.AddRow(reader.GetInt64(0), reader.GetDateTime(1).ToShortDateString());
+                dbContext.conn.Open();
+                string sql = "SELECT order_date ,count(sid) as incomplete_sales " +
+                             "FROM `icecreamshop`.`sales` u " +
+                             "WHERE u.price is null " +
+                             "GROUP BY u.order_date;";
+                MySqlDataReader reader = new MySqlCommand(sql, dbContext.conn).ExecuteReader();
+                result = "------------------------------ All incomplete sales ------------------------------\n";
+                while (reader.Read())
+                {
+                    table.AddRow(reader.GetDateTime(0).ToShortDateString(), reader.GetInt32(1));
+                }
+                reader.Close();
             }
-            reader.Close();
-            dbContext.conn.Close();
-            string title = "------------------------------ All incomplete sales ------------------------------\n";
-            return title + "\n" + table.ToString() + "\n";
+            catch (Exception err)
+            {
+                Console.WriteLine($"[showAllIncompleteSales] Error: {err.Message}");
+            }
+            finally
+            {
+                dbContext.conn.Close();
+            }
+            return result + "\n" + table.ToString() + "\n";
         }
         // The most common ingredient (it is mandatory to use JOIN) and the most common taste.
         public string mostCommonIngredientNTaste()
