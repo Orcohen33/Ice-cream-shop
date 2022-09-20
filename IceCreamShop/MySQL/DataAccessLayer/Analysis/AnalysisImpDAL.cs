@@ -25,7 +25,7 @@ namespace IceCreamShop.MySQL.DataAccessLayer.Analysis
                 result = "------------------------------ Customer invoice ------------------------------\n";
                 while (reader.Read())
                 {
-
+                    result += "ID: " + (int)reader["sid"] + "\n";
                     result += "Order date: " + (DateTime)reader["order_date"] + "\n";
                     result += "Price: " + reader["price"] + "\n";
                 }

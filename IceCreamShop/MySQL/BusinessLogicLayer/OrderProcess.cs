@@ -146,22 +146,17 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
             }
             #endregion
 
-
-            if (numOfBalls > 1)
+            if (numOfBalls == 1) sale.setPrice(sale.getPrice() + 1);
+            for (int i = 0; i < numOfBalls; i++)
             {
-                for (int i = 0; i < numOfBalls; i++)
-                {
-                    Console.Write("\tchoose id of taste: ");
-                    userInput = int.Parse(Console.ReadLine());
-                    sale.orders.Add(new(sale.Id, userInput));
-                }
-            }
-            else
-            {
-                Console.Write("\tchoose id of taste: ");
+                Console.Write("\tchoose taste id: ");
                 userInput = int.Parse(Console.ReadLine());
+                while (userInput < 1 || userInput > kindOfBalls.Count)
+                {
+                    Console.Write("\tInvalid input, choose taste id: ");
+                    userInput = int.Parse(Console.ReadLine());
+                }
                 sale.orders.Add(new(sale.Id, userInput));
-                sale.setPrice(sale.Price + 1);  // 1 ball worth 7, 2 and more worth each 6
             }
             chooseHowManyToppings(numOfBalls); // step 4 -> step 5
         }
@@ -171,8 +166,13 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
             if (numOfBalls == 1 &&
                 ingredientBLL.GetIngredientByID(sale.orders.ElementAt(0).IngredientId)
                             .Name == "RegularCup") { finalStepOfOrder(); } // step 5 -> step 7
-            Console.Write("Choose how many toppings: ");
-            chooseTopping(int.Parse(Console.ReadLine())); // step 5 -> step 6            
+            else
+            {
+                Console.Write("Choose how many toppings: ");
+                userInput = int.Parse(Console.ReadLine());
+                if (userInput == 0) finalStepOfOrder(); // step 5 -> step 7
+                else chooseTopping(int.Parse(Console.ReadLine())); // step 5 -> step 6            
+            }
         }
 
         /* step 6 */
@@ -188,8 +188,16 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
             #endregion
             for (int i = 0; i < userInput; i++)
             {
-                Console.Write("\tchoose id of topping: ");
-                sale.orders.Add(new(sale.Id, kindOfToppings.ElementAt(int.Parse(Console.ReadLine()) - 1).Id));
+
+                Console.Write("Choose topping id: ");
+                userInput = int.Parse(Console.ReadLine());
+                while (userInput < 1 || userInput > kindOfToppings.Count)
+                {
+                    Console.Write("Invalid input, choose topping id: ");
+                    userInput = int.Parse(Console.ReadLine());
+                }
+                sale.orders.Add(new(sale.Id, kindOfToppings.ElementAt(userInput - 1).Id));
+
             }
             finalStepOfOrder(); // step 6 -> step 7
         }
@@ -234,7 +242,7 @@ namespace IceCreamShop.MySQL.BusinessLogicLayer
                                 $"2. End of day report: (Enter date in format: yyyy-mm-dd): \n" +
                                 $"3. All end of day reports: \n" +
                                 $"4. Show all incomplete sales: \n" +
-                                $"5. Most common ingredient and taste:" +
+                                $"5. Most common ingredient and taste: \n" +
                                 $"-1. Exit:");
                 userInput = int.Parse(Console.ReadLine());
                 switch (userInput)
