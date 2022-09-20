@@ -5,7 +5,7 @@ using IceCreamShop.MySQL.PresentationLayer;
 Console.WriteLine("[Menu] \n" +
                   "1. MySQL \n" +
                   "2. MongoDB \n" +
-                  "3. Exit \n");
+                  "-1. Exit \n");
 string userInput = Console.ReadLine() ?? "";
 
 do
