@@ -188,19 +188,13 @@ namespace IceCreamShop.MongoDB.BusinessLogicLayer
 
             for (int i = 0; i < numOfToppings; i++)
             {
-                Console.Write("Choose topping id: ");
-                while (!int.TryParse(Console.ReadLine(), out userInput))
-                {
-                    if (userInput > 0 && userInput <= toppingCollection.Count)
-                    {
-                        mongoSale.ingredients.Add(toppingCollection[userInput - 1]);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid input");
-                    }
-                };
 
+                Console.Write("Choose topping id: ");
+                while (!int.TryParse(Console.ReadLine(), out userInput) || !(userInput >= 1 && userInput <= toppingCollection.Count()))
+                {
+                    Console.Write("Invalid input, try again: ");
+                }
+                mongoSale.ingredients.Add(toppingCollection[userInput - 1]);
             }
             finalStepOrder(ref mongoSale); //step 6 -> step 7
         }
