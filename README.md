@@ -1,5 +1,5 @@
 # Ice-cream-shop
-Implement a ice cream shop system with MySQL &amp; MongoDB using the three-layer architecture.
+Implement a ice cream shop system with MySQL &amp; MongoDB with CRUD operations using the three-layer architecture.
 
 ## About
 <br>This project represents the customer and manager's side in an ice cream shop (for analysis purposes).</br>
@@ -28,7 +28,6 @@ set up your connection details here:
 const string connStr = "server=localhost;user=root;port=3306;password=root";
 ...
 ```
-### How to run
 
 # MongoDB
 
@@ -67,6 +66,12 @@ MongoClientSettings settings = MongoClientSettings.FromConnectionString("mongodb
 ### A simple video illustrating the console app:
 #### MySQL:
 https://user-images.githubusercontent.com/92351152/191263303-748b2262-b0b3-40e7-942e-5dc28f16249b.mp4
+
+#### MongoDB:
+
+https://user-images.githubusercontent.com/92351152/191431942-b4bd09eb-240d-46c7-91e9-0be9f31cb456.mp4
+
+
 
 
 
