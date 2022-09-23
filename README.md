@@ -12,7 +12,7 @@ Implement a ice cream shop system with MySQL &amp; MongoDB with CRUD operations 
 </br>
 
 # System Design
-![SystemDesign](https://user-images.githubusercontent.com/92351152/191262207-a42195e5-704b-40ee-9ffe-109271b49e8a.png)
+![SystemDesign](https://user-images.githubusercontent.com/92351152/191906307-e1198335-034f-4e6f-b9f1-972c824f804f.png)
 
 
 # MySQL
